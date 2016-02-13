@@ -10,7 +10,6 @@ requires:
 
 setup:
 * run ./get_lowest_price.py to find the spot price for your chosen instance
-
 * edit set_aws.sh.example -> save as set_aws.sh
 * source set_aws.sh
 * edit Makefile (and maybe instance.tf) to configure the instance as you want
@@ -21,7 +20,7 @@ ideal usage:
 
 Here's how I use it from another makefile:
 ```Makefile
-aws := make -C ./launch_instance
+aws := make -C ./aws-quickie
 apply:
 	$(aws) apply
 
