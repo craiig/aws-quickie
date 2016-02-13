@@ -10,6 +10,7 @@ variable "key_pair_name" {}
 variable "instance_type" {}
 variable "spot_price" {}
 variable "ami" {}
+variable "user_data" {}
 
 resource "aws_security_group" "cheapdebug" {
 	name = "${var.machine_name}"
@@ -36,7 +37,7 @@ resource "aws_spot_instance_request" "cheapdebug" {
     security_groups = ["${aws_security_group.cheapdebug.name}"]
     wait_for_fulfillment = 1
     key_name = "${var.key_pair_name}"
-    user_data = "${file("user_data.sh")}"
+    user_data = "${file("${var.user_data}")}"
 }
 
 /* makes sure that the output tfstate has a json entry that jq can parse */
