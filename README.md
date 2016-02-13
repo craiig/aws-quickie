@@ -1,6 +1,6 @@
-A quick way to setup an AWS instance
-Let's you bring it up and down via the command line
-Uses Terraform to start/stop instances
+A quick way to setup an AWS instance.
+Let's you bring it up and down via the command line.
+Uses Terraform to start/stop instances.
 
 requires:
 * terraform
