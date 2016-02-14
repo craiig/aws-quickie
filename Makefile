@@ -1,11 +1,14 @@
-#set these variables
+#set these variables in your makefile
 machine_name ?= ventrilo
 key_pair_name ?= ventrilo
 instance_type ?= t1.micro
 spot_price ?= 0.0032 
 #amazon linux on us-west-2
 ami ?= ami-81f7e8b1
-user_data = ./user_data.sh
+user_data ?= ./user_data.sh
+
+#where terraform pulls the instance data from
+terraform_dir ?= ./
 
 #set this depending on your ami, set this to be the user that the private key
 # woudl be for. on Amazon Linux this will be ec2-user, this also might be root
@@ -31,7 +34,8 @@ terraform = terraform $(1) \
 	-var 'instance_type=$(instance_type)' \
 	-var 'ami=$(ami)' \
 	-var 'user_data=$(user_data)' \
-       	-state=$(build_dir)/terraform.tfstate
+       	-state=$(build_dir)/terraform.tfstate \
+	$(terraform_dir)
 
 $(build_dir)/kp_$(key_pair_name)_response.json:
 	aws ec2 create-key-pair --key-name $(key_pair_name) > $@
@@ -39,6 +43,7 @@ $(build_dir)/kp_$(key_pair_name)_response.json:
 #NOTE: used ordering dependency below so that we don't acidentally overwrite an existing identity file
 $(AWS_IDENTITY_FILE): | $(build_dir)/kp_$(key_pair_name)_response.json
 	jq -r '.["KeyMaterial"]' build/kp_$(key_pair_name)_response.json > $(AWS_IDENTITY_FILE)
+	chmod 600 $(AWS_IDENTITY_FILE)
 
 $(build_dir):
 	mkdir -p $(build_dir)
