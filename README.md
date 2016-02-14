@@ -13,6 +13,7 @@ setup:
 * edit set_aws.sh.example -> save as set_aws.sh
 * source set_aws.sh
 * edit Makefile (and maybe instance.tf) to configure the instance as you want
+* opening ports will need instance.tf edited
 * make apply (boot the instance)
 * make destroy (kill the instance)
 
