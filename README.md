@@ -25,14 +25,15 @@ ideal usage:
 Here's how I use it from another makefile:
 ```Makefile
 #variables will get picked up by submake calls
-terraform_dir=`pwd`
-machine_name ?= ventrilo
-key_pair_name ?= ventrilo
-instance_type ?= t1.micro
-spot_price ?= 0.0033
+export terraform_dir=`pwd`
+export machine_name ?= ventrilo
+export key_pair_name ?= ventrilo
+export instance_type ?= t1.micro
+export spot_price ?= 0.0033
 #amazon linux on us-west-2
-ami ?= ami-81f7e8b1
-user_data = `pwd`/vent_setup.sh
+export ami ?= ami-81f7e8b1
+#relative to aws-quickie dir
+export user_data = ../vent_setup.sh
 
 aws := make -C ./aws-quickie
 apply:
