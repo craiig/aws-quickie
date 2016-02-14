@@ -24,6 +24,7 @@ active_spot_requests := $(build_dir)/active_spot_requests.json
 
 #you can probably leave these alone
 terraform = terraform $(1) \
+	$(TERRAFORM_FLAGS) \
 	-var 'machine_name=$(machine_name)' \
 	-var 'key_pair_name=$(key_pair_name)' \
 	-var 'spot_price=$(spot_price)' \
