@@ -9,6 +9,7 @@ requires:
 * pip install boto3
 
 setup:
+* cd to/your/project/dir
 * git clone [this repo]
 * run get_lowest_price.py to find the spot price for your chosen instance
 * cp aws-quickie/instance.tf instance.tf; vim instance.tf; //edit terraform file to your liking
